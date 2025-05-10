@@ -1,0 +1,82 @@
+/* ========== Project Card Component ========== */
+.card {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background-color: var(--card-bg);
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+  width: 180px;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 15px;
+  max-width: 30%;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  color: var(--primary-color);
+}
+
+.card-description {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.card .button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: 1px solid #111;
+  color: #111;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.card .button:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+/* ========== Project Page Specific Styles ========== */
+.project-details {
+  margin: 16px 0;
+  padding-left: 20px;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.project-details li {
+  margin-bottom: 8px;
+}
+
+/* ========== Responsive Styles ========== */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .card-image {
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,170 @@
+/* ========== Reset & Variables ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #000000;
+  --accent-color: #ffffff;
+  --background: #ffffff;
+  --card-bg: #f9f9f9;
+  --text-color: #000000;
+  --text-muted: #666666;
+}
+
+/* ========== Global Styles ========== */
+body.site-body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  color: var(--text-color);
+  line-height: 1.75;
+}
+
+/* ========== Header ========== */
+.site-header {
+  background-color: var(--background);
+  border-bottom: 1px solid #e5e5e5;
+  padding: 20px 40px;
+  position: static;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.home-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.home-link:hover {
+  opacity: 0.8;
+}
+
+.main-nav .nav-list {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  padding-bottom: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+}
+
+/* ========== Section Titles & Containers ========== */
+.section-title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 0 0 30px;
+  font-weight: 600;
+}
+
+.container-box {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== Footer ========== */
+.site-footer {
+  background-color: var(--background);
+  text-align: center;
+  padding: 30px 40px;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* ========== Social Buttons ========== */
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #000;
+  color: #000;
+  background: none;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.icon-button i {
+  font-size: 1.2rem;
+}
+
+.icon-button:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ========== Mobile Navigation ========== */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .main-nav.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+    color: var(--text-color);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .nav-link {
+    padding: 8px 0;
+  }
+}

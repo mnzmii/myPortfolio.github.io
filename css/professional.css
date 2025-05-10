@@ -1,0 +1,89 @@
+/* ========== Professional Development Header ========== */
+.profdev-header {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Event Date Styling */
+.profdev-date {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 8px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.profdev-date i {
+  color: var(--primary-color);
+}
+
+/* ========== Media Section ========== */
+.profdev-media {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.profdev-media.single {
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.profdev-img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.profdev-media.single .profdev-img {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ========== Summary Text ========== */
+.profdev-summary {
+  margin: 0 auto;
+  padding: 0 20px;
+  line-height: 1.8;
+  color: var(--text-color);
+}
+
+.profdev-summary p {
+  margin-bottom: 1.5em;
+  text-align: justify;
+  font-size: 1rem;
+}
+
+/* ========== Transition Message ========== */
+.profdev-transition {
+  text-align: center;
+  margin: 30px 0 20px;
+}
+
+/* ========== Key Takeaways Section ========== */
+.profdev-takeaways {
+  margin-top: 30px;
+}
+
+.takeaways {
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.takeaways ul {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.takeaways li {
+  margin-bottom: 0.75rem;
+}

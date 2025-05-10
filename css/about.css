@@ -1,0 +1,41 @@
+/* ========== About Page Text ========== */
+.about-text {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: justify;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: var(--text-color);
+}
+
+/* ========== Skills Grid Layout ========== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns on large screens */
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.skill-box {
+  background-color: #f9f9f9;
+  text-align: center;
+  padding: 14px 0;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.skill-box:hover {
+  background-color: #000;
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== Responsive for Small Screens ========== */
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+  }
+}
