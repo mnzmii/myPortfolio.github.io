@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="green">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTF Writeups | Muhammad Nazmi</title>
+  <meta name="description"
+    content="CTF Writeup archive — Incident reports documenting attack paths, toolsets, and methodologies." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="booting">
+  <div id="boot-screen" class="boot-screen" aria-hidden="true">
+    <div class="boot-screen__inner">
+      <div class="boot-line" data-delay="0">BIOS v4.2.1 — Secure Boot: ENABLED</div>
+      <div class="boot-line" data-delay="200">Checking memory... <span class="boot-ok">512MB OK</span></div>
+      <div class="boot-line" data-delay="500">Loading kernel.............. <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="800">Mounting /dev/portfolio..... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1050">Initializing firewall....... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1300">Starting sshd............... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1550">Loading matrix_rain.ko...... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1800">Decrypting /home/guest....... <span class="boot-ok">[DONE]</span></div>
+      <div class="boot-line boot-line--ready" data-delay="2100"><span class="boot-ok">> System ready. Welcome,
+          guest.</span></div>
+    </div>
+  </div>
+
+  <div class="scanlines" aria-hidden="true"></div>
+  <canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+  <nav id="main-nav" class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav__logo" aria-label="Home">
+      <span class="nav__prompt">root@sec</span><span class="nav__cursor">_</span>
+    </a>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="index.html" class="nav__link">[ ~/Home ]</a></li>
+      <li><a href="ctf.html" class="nav__link active">[ ~/CTF_Writeups ]</a></li>
+      <li><a href="projects.html" class="nav__link">[ ~/Projects ]</a></li>
+      <li><a href="contact.html" class="nav__link">[ ~/Contact ]</a></li>
+    </ul>
+    <div class="nav__actions">
+      <div class="nav__theme-switch" title="Toggle Hardware Color Mode">
+        <label class="theme-switch">
+          <input type="checkbox" id="theme-toggle" aria-label="Toggle Color Theme">
+          <span class="theme-switch__slider"></span>
+        </label>
+      </div>
+      <a href="assets/Resume_Nazmi.pdf" class="nav__resume-btn" id="resume-download-btn" aria-label="Download Resume"
+        target="_blank" download="Resume_Nazmi.pdf"><span class="nav__resume-icon">⬇</span><span
+          class="nav__resume-text">Resume</span></a>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <div class="page-header__breadcrumb">
+        <a href="index.html" class="page-header__back">~/Home</a>
+        <span class="page-header__sep">/</span>
+        <span class="page-header__current">CTF_Writeups</span>
+      </div>
+      <h1 class="page-header__title glitch" data-text="// CTF_WRITEUPS">// CTF_WRITEUPS</h1>
+      <p class="page-header__desc">Incident reports from the field. Each entry documents the attack path, toolset, and
+        key takeaways from completed challenges.</p>
+      <div class="page-header__stats">
+        <div class="stat-chip"><span class="stat-chip__label">TOTAL REPORTS:</span><span
+            class="stat-chip__value highlight-green">16</span></div>
+        <div class="stat-chip"><span class="stat-chip__label">STATUS:</span><span
+            class="stat-chip__value highlight-green">ALL SOLVED</span></div>
+        <div class="stat-chip"><span class="stat-chip__label">PLATFORM:</span><span
+            class="stat-chip__value highlight-blue">PICO_CTF</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section ctf-section">
+    <div class="container">
+      <div class="ctf-grid">
+        <article class="ctf-card animate-on-scroll" id="ctf-report-001">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-001</span><span
+              class="ctf-card__category ctf-card__category--crypto">Cryptography</span></div>
+          <h3 class="ctf-card__title">StegoRSA</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">RSA</span><span class="ctf-tool">Steganography</span><span
+              class="ctf-tool">Python</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Extracted hidden data from image files → Identified RSA public key and ciphertext → Utilized
+              cryptographic attacks to decrypt the underlying flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/StegoRSA" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-002">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-002</span><span
+              class="ctf-card__category ctf-card__category--web">Web Exploitation</span></div>
+          <h3 class="ctf-card__title">Echo Escape 1</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Command Injection</span><span class="ctf-tool">Burp
+              Suite</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Analyzed web input field for the "echo" utility → Bypassed client-side sanitization → Injected shell
+              metacharacters (;) to execute arbitrary OS commands and retrieve the hidden flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Echo%20Escape%201" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-003">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-003</span><span
+              class="ctf-card__category ctf-card__category--pwn">Privilege Escalation</span></div>
+          <h3 class="ctf-card__title">SUDO MAKE ME A SANDWICH</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Linux Admin</span><span class="ctf-tool">Sudoers</span>
+          </div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Explored the target system permissions via `sudo -l` → Identified a misconfigured binary that could be
+              executed with root privileges without a password → Abused binary features to drop into a root shell.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/SUDO%20MAKE%20ME%20A%20SANDWICH"
+              target="_blank" class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-004">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-004</span><span
+              class="ctf-card__category ctf-card__category--forensics">Forensics</span></div>
+          <h3 class="ctf-card__title">Timeline 0</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--easy">Easy</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Autopsy</span><span class="ctf-tool">Grep</span><span
+              class="ctf-tool">Log Analysis</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Loaded provided system timeline logs and artifacts → Scanned through event histories searching for
+              suspicious timeline changes → Correlated user activity to successfully trace the inserted flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Timeline%200" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-005">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-005</span><span
+              class="ctf-card__category ctf-card__category--pwn">General Skills</span></div>
+          <h3 class="ctf-card__title">Binary Digits</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--easy">Easy</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Binary Math</span><span class="ctf-tool">Encoding</span>
+          </div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Intercepted a binary string provided by the challenge → Converted base-2 (binary) data to base-10
+              (decimal) and then to ASCII characters → Pieced together the underlying hidden flag format.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Binary%20Digits" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-006">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-006</span><span
+              class="ctf-card__category ctf-card__category--web">Web Exploitation</span></div>
+          <h3 class="ctf-card__title">ping-cmd</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">RCE</span><span class="ctf-tool">Linux Commands</span>
+          </div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Identified a network utility web interface wrapping the system ping command → Injected logical bash
+              operators (&&, |) into the IP field → Achieved Remote Code Execution and retrieved flag.txt.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/ping-cmd" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-007">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-007</span><span
+              class="ctf-card__category ctf-card__category--pwn">Reverse Engineering</span></div>
+          <h3 class="ctf-card__title">Gatekeeper</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Ghidra</span><span class="ctf-tool">Assembly</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Decompiled the target executable → Analyzed string comparisons and memory registers → Constructed the
+              correct verification input to extract the flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Gatekeeper" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-008">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-008</span><span
+              class="ctf-card__category ctf-card__category--crypto">Cryptography</span></div>
+          <h3 class="ctf-card__title">Hidden Cipher 1</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--easy">Easy</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">CyberChef</span><span class="ctf-tool">Encoding</span>
+          </div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Identified a Caesar/ROT-based cipher text → Iterated through shift values → Successfully exposed the
+              plaintext flag format.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Hidden%20Cipher%201" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-009">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-009</span><span
+              class="ctf-card__category ctf-card__category--crypto">Cryptography</span></div>
+          <h3 class="ctf-card__title">Hidden Cipher 2</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Vigenère</span><span class="ctf-tool">Python</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Analyzed multi-layered polyalphabetic cipher → Deduced the key length using Kasiski examination → Applied
+              key to decrypt the ciphertext flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Hidden%20Cipher%202" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-010">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-010</span><span
+              class="ctf-card__category ctf-card__category--forensics">Forensics</span></div>
+          <h3 class="ctf-card__title">MY GIT</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--easy">Easy</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Git</span><span class="ctf-tool">Version Control</span>
+          </div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Inspected exposed .git repository directory → Navigated through commit history and branches → Recovered
+              deleted files containing the target flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/MY%20GIT" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-011">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-011</span><span
+              class="ctf-card__category ctf-card__category--web">Web Exploitation</span></div>
+          <h3 class="ctf-card__title">Old Sessions</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--easy">Easy</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Cookies</span><span class="ctf-tool">Session
+              Highjacking</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Analyzed browser response headers → Forged and injected an outdated admin session cookie → Bypassed
+              authentication to reveal the flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Old%20Sessions" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-012">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-012</span><span
+              class="ctf-card__category ctf-card__category--forensics">OSINT / Forensics</span></div>
+          <h3 class="ctf-card__title">Passwords Profiler</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">OSINT</span><span class="ctf-tool">Hashcat</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Compiled social profiling data into a custom wordlist → Executed dictionary attack against target hash →
+              Successfully cracked the user's password.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Passwords%20Profiler" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-013">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-013</span><span
+              class="ctf-card__category ctf-card__category--pwn">General Skills</span></div>
+          <h3 class="ctf-card__title">Piece by Piece</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--easy">Easy</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Python</span><span class="ctf-tool">Scripting</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Analyzed fractured payload strings across multiple files → Wrote a python script to parse and reassemble
+              the fragments → Executed final output to reveal the flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Piece%20by%20Piece" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-014">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-014</span><span
+              class="ctf-card__category ctf-card__category--forensics">Network Forensics</span></div>
+          <h3 class="ctf-card__title">Printer Shares</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Wireshark</span><span class="ctf-tool">SMB</span></div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Analyzed a PCAP file containing local network traffic → Extracted SMB protocol traces → Reconstructed an
+              insecurely printed document containing the flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Printer%20Shares" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-015">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-015</span><span
+              class="ctf-card__category ctf-card__category--crypto">Cryptography</span></div>
+          <h3 class="ctf-card__title">Shared Secret</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--medium">Medium</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Diffie-Hellman</span><span class="ctf-tool">Math</span>
+          </div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Intercepted weak parameters in a Key Exchange sequence → Exploited compromised prime numbers → Calculated
+              the shared secret key to decrypt the payload.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Shared%20Secret" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-016">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-016</span><span
+              class="ctf-card__category ctf-card__category--pwn">Reverse Engineering</span></div>
+          <h3 class="ctf-card__title">bytemancy 2</h3>
+          <div class="ctf-card__meta">
+            <div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span
+                class="ctf-card__value">PicoCTF</span></div>
+            <div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span
+                class="ctf-card__value ctf-card__value--hard">Hard</span></div>
+          </div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Decompiler</span><span class="ctf-tool">Bytecode</span>
+          </div>
+          <div class="ctf-card__summary"><span class="ctf-card__label">ATTACK PATH:</span>
+            <p>Analyzed obfuscated binary operations → Reverse engineered the byte-manipulation logic step-by-step →
+              Rebuilt the decryption function to unpack the flag.</p>
+          </div>
+          <div class="ctf-card__footer"
+            style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/bytemancy%202" target="_blank"
+              class="blog-card__btn"
+              style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">>
+              VIEW_WRITEUP</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="section__cta animate-on-scroll" style="margin-top: 40px; text-align: center;">
+        <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF" target="_blank" class="cta-button"
+          id="view-all-ctf-github">
+          <span class="cta-button__prompt">guest@portfolio:~$</span>
+          <span class="cta-button__text">ls -la ./PicoCTF_Archive/ --all</span>
+          <span class="cta-button__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text"><span class="terminal__prompt">root@portfolio:~#</span> echo "© <span
+          id="footer-year">2026</span> Muhammad Nazmi. All rights reserved."</p>
+      <p class="footer__sub">// Built with raw HTML, CSS, and JS. No frameworks harmed.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>

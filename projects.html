@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="green">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Muhammad Nadzrin</title>
+  <meta name="description" content="Technical projects, lab deployments, and infrastructure deep-dives from a Network Engineer transitioning into Cybersecurity." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="booting">
+  <div id="boot-screen" class="boot-screen" aria-hidden="true">
+    <div class="boot-screen__inner">
+      <div class="boot-line" data-delay="0">BIOS v4.2.1 — Secure Boot: ENABLED</div>
+      <div class="boot-line" data-delay="200">Checking memory... <span class="boot-ok">512MB OK</span></div>
+      <div class="boot-line" data-delay="500">Loading kernel.............. <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="800">Mounting /dev/portfolio..... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1050">Initializing firewall....... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1300">Starting sshd............... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1550">Loading matrix_rain.ko...... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1800">Decrypting /home/guest....... <span class="boot-ok">[DONE]</span></div>
+      <div class="boot-line boot-line--ready" data-delay="2100"><span class="boot-ok">> System ready. Welcome, guest.</span></div>
+    </div>
+  </div>
+
+  <div class="scanlines" aria-hidden="true"></div>
+  <canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+  <nav id="main-nav" class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav__logo" aria-label="Home">
+      <span class="nav__prompt">root@sec</span><span class="nav__cursor">_</span>
+    </a>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="index.html" class="nav__link">[ ~/Home ]</a></li>
+      <li><a href="ctf.html" class="nav__link">[ ~/CTF_Writeups ]</a></li>
+      <li><a href="projects.html" class="nav__link active">[ ~/Projects ]</a></li>
+      <li><a href="contact.html" class="nav__link">[ ~/Contact ]</a></li>
+    </ul>
+    <div class="nav__actions">
+      <div class="nav__theme-switch" title="Toggle Hardware Color Mode">
+        <label class="theme-switch">
+          <input type="checkbox" id="theme-toggle" aria-label="Toggle Color Theme">
+          <span class="theme-switch__slider"></span>
+        </label>
+      </div>
+      <a href="assets/Resume_Nazmi.pdf" class="nav__resume-btn" id="resume-download-btn" aria-label="Download Resume" target="_blank" download="Resume_Nazmi.pdf"><span class="nav__resume-icon">⬇</span><span class="nav__resume-text">Resume</span></a>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <div class="page-header__breadcrumb">
+        <a href="index.html" class="page-header__back">~/Home</a>
+        <span class="page-header__sep">/</span>
+        <span class="page-header__current">Projects</span>
+      </div>
+      <h1 class="page-header__title glitch" data-text="// PROJECTS">// PROJECTS</h1>
+      <p class="page-header__desc">Technical projects, lab deployments, and infrastructure builds. Documenting the journey from network infrastructure to proactive security operations.</p>
+      <div class="page-header__stats">
+        <div class="stat-chip"><span class="stat-chip__label">TOTAL PROJECTS:</span><span class="stat-chip__value highlight-green">1</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section blog-section">
+    <div class="container">
+      <!-- Filters temporarily hidden until more projects are added -->
+      <!--
+      <div class="blog-filters animate-on-scroll">
+        <button class="blog-filter active" data-filter="all">[ ALL ]</button>
+        <button class="blog-filter" data-filter="blue">[ BLUE_TEAM ]</button>
+        <button class="blog-filter" data-filter="red">[ RED_TEAM ]</button>
+        <button class="blog-filter" data-filter="infra">[ INFRA ]</button>
+      </div>
+      -->
+
+      <div class="blog-grid blog-grid--full">
+        <article class="blog-card animate-on-scroll" id="blog-001" data-category="blue">
+          <div class="blog-card__header">
+            <span class="blog-card__date">2026-04-10</span>
+            <span class="blog-card__tag blog-card__tag--blue">Security Dev</span>
+          </div>
+          <h3 class="blog-card__title">CryptoQuest: The Digital Courier</h3>
+          <p class="blog-card__excerpt">An interactive educational game teaching cryptography fundamentals (encryption, hashing, and public-key cryptography) through gameplay. Players navigate cyber-zones as digital couriers with an adaptive AI companion.</p>
+          <div class="blog-card__tags">
+            <span class="blog-card__tech">React</span>
+            <span class="blog-card__tech">Tailwind</span>
+            <span class="blog-card__tech">JavaScript</span>
+            <span class="blog-card__tech">Cryptography</span>
+          </div>
+          <div class="blog-card__footer" style="justify-content: flex-end;">
+            <a href="https://github.com/mnzmii/CryptoQuestTheDigitalCourier" target="_blank" class="blog-card__btn">> VIEW_ON_GITHUB</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="projects-tba animate-on-scroll" style="margin-top: 4rem; text-align: center; border-top: 1px dashed var(--border); padding-top: 2.5rem;">
+        <p style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6;">
+          <span style="color: var(--yellow); font-weight: 600;">[STATUS: PIPELINE_ACTIVE]</span><br>
+          More security projects, infrastructure blueprints, and lab deployments are currently in development.<br>
+          <span style="opacity: 0.7;">> Stay tuned for upcoming pushed commits... <span class="blinking-cursor">█</span></span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text"><span class="terminal__prompt">root@portfolio:~#</span> echo "© <span id="footer-year">2026</span> Muhammad Nazmi. All rights reserved."</p>
+      <p class="footer__sub">// Built with raw HTML, CSS, and JS. No frameworks harmed.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="green">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Network Engineer & Cybersecurity</title>
+  <meta name="description" content="Portfolio of a Network Engineer transitioning into Cybersecurity. Explore skills, CTF writeups, and get in touch." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="booting home-page">
+
+  <!-- ========== BOOT SEQUENCE OVERLAY ========== -->
+  <div id="boot-screen" class="boot-screen" aria-hidden="true">
+    <div class="boot-screen__inner">
+      <div class="boot-line" data-delay="0">BIOS v4.2.1 — Secure Boot: ENABLED</div>
+      <div class="boot-line" data-delay="200">Checking memory... <span class="boot-ok">512MB OK</span></div>
+      <div class="boot-line" data-delay="500">Loading kernel.............. <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="800">Mounting /dev/portfolio..... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1050">Initializing firewall....... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1300">Starting sshd............... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1550">Loading matrix_rain.ko...... <span class="boot-ok">[OK]</span></div>
+      <div class="boot-line" data-delay="1800">Decrypting /home/guest....... <span class="boot-ok">[DONE]</span></div>
+      <div class="boot-line boot-line--ready" data-delay="2100">
+        <span class="boot-ok">> System ready. Welcome, guest.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCANLINES OVERLAY ========== -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ========== MATRIX RAIN CANVAS ========== -->
+  <canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="main-nav" class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav__logo" aria-label="Home">
+      <span class="nav__prompt">root@sec</span><span class="nav__cursor">_</span>
+    </a>
+
+    <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links" id="nav-links">
+      <li><a href="index.html" class="nav__link active">[ ~/Home ]</a></li>
+      <li><a href="ctf.html" class="nav__link">[ ~/CTF_Writeups ]</a></li>
+      <li><a href="projects.html" class="nav__link">[ ~/Projects ]</a></li>
+      <li><a href="contact.html" class="nav__link">[ ~/Contact ]</a></li>
+    </ul>
+
+    <div class="nav__actions">
+      <div class="nav__theme-switch" title="Toggle Hardware Color Mode">
+        <label class="theme-switch">
+          <input type="checkbox" id="theme-toggle" aria-label="Toggle Color Theme">
+          <span class="theme-switch__slider"></span>
+        </label>
+      </div>
+      <a href="assets/Resume_Nazmi.pdf" class="nav__resume-btn" id="resume-download-btn" aria-label="Download Resume" target="_blank" download="Resume_Nazmi.pdf">
+        <span class="nav__resume-icon">⬇</span>
+        <span class="nav__resume-text">Resume</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION — Interactive Terminal ========== -->
+  <section id="home" class="hero">
+    <div class="hero__terminal">
+      <div class="terminal__bar">
+        <span class="terminal__dot terminal__dot--red"></span>
+        <span class="terminal__dot terminal__dot--yellow"></span>
+        <span class="terminal__dot terminal__dot--green"></span>
+        <span class="terminal__title">guest@portfolio — bash</span>
+      </div>
+      <div class="terminal__body" id="terminal-body">
+        <div id="terminal-history"></div>
+        <div class="terminal__input-line">
+          <span class="terminal__prompt">guest@portfolio:~$</span>
+          <div class="terminal__input-wrapper">
+            <span id="terminal-mirror" class="terminal__mirror"></span><span class="terminal__caret-input">█</span>
+            <input type="text" id="terminal-input" class="terminal__input" autocomplete="off" spellcheck="false" autofocus aria-label="Terminal command input" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll-indicator" aria-hidden="true">
+      <span>scroll_down</span>
+      <div class="hero__scroll-arrow">▼</div>
+    </div>
+  </section>
+
+  <!-- ========== EDUCATION & SKILLS ========== -->
+  <section id="skills" class="section skills-section">
+    <div class="container">
+      <h2 class="section__title glitch" data-text="// EDUCATION & SKILLS">// EDUCATION &amp; SKILLS</h2>
+
+      <div class="edu">
+        <div class="edu__header">
+          <span class="edu__scan">[ Scanning directory: /usr/academic/background ]</span>
+          <span class="edu__status">STATUS: COMPLETE</span>
+        </div>
+        <div class="edu__entries">
+          <div class="edu__entry animate-on-scroll">
+            <div class="edu__icon">📂</div>
+            <div class="edu__details">
+              <h3 class="edu__degree">drwxr-xr-x &nbsp; Bachelor of Computer Science (Computer Network & Security) with Honours</h3>
+              <p class="edu__school">└── Institution: <span class="highlight-green">Universiti Teknologi Malaysia, Skudai</span></p>
+              <p class="edu__year">└── Year: <span class="highlight-blue">October 2023 – Present</span></p>
+            </div>
+          </div>
+          <div class="edu__entry animate-on-scroll">
+            <div class="edu__icon">📂</div>
+            <div class="edu__details">
+              <h3 class="edu__degree">drwxr-xr-x &nbsp; Foundation in Engineering</h3>
+              <p class="edu__school">└── Institution: <span class="highlight-green">UiTM Dengkil, Selangor</span></p>
+              <p class="edu__year">└── Year: <span class="highlight-blue">August 2022 – Jun 2023</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card animate-on-scroll" id="skill-webdev">
+          <div class="skill-card__header">
+            <span class="skill-card__icon">&lt;/&gt;</span>
+            <h3 class="skill-card__title">Web Development</h3>
+          </div>
+          <ul class="skill-card__list">
+            <li><span class="skill-tag">HTML5</span></li>
+            <li><span class="skill-tag">CSS3</span></li>
+            <li><span class="skill-tag">JavaScript</span></li>
+            <li><span class="skill-tag">Responsive Design</span></li>
+            <li><span class="skill-tag">Git</span></li>
+          </ul>
+          <div class="skill-card__bar">
+            <div class="skill-card__progress" data-width="72"></div>
+          </div>
+        </div>
+
+        <div class="skill-card animate-on-scroll" id="skill-cybersec">
+          <div class="skill-card__header">
+            <span class="skill-card__icon">🛡️</span>
+            <h3 class="skill-card__title">Cybersecurity</h3>
+          </div>
+          <ul class="skill-card__list">
+            <li><span class="skill-tag">Wireshark</span></li>
+            <li><span class="skill-tag">Nmap</span></li>
+            <li><span class="skill-tag">Vuln Scanning</span></li>
+            <li><span class="skill-tag">CTF Challenges</span></li>
+            <li><span class="skill-tag">Burp Suite</span></li>
+            <li><span class="skill-tag">OSINT</span></li>
+          </ul>
+          <div class="skill-card__bar">
+            <div class="skill-card__progress" data-width="65"></div>
+          </div>
+        </div>
+
+        <div class="skill-card animate-on-scroll" id="skill-devops">
+          <div class="skill-card__header">
+            <span class="skill-card__icon">⚙️</span>
+            <h3 class="skill-card__title">DevOps / Infrastructure</h3>
+          </div>
+          <ul class="skill-card__list">
+            <li><span class="skill-tag">Linux Admin</span></li>
+            <li><span class="skill-tag">Bash Scripting</span></li>
+            <li><span class="skill-tag">Cisco R&amp;S</span></li>
+            <li><span class="skill-tag">Docker</span></li>
+            <li><span class="skill-tag">Networking</span></li>
+          </ul>
+          <div class="skill-card__bar">
+            <div class="skill-card__progress" data-width="80"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ROADMAP / SKILL TREE ========== -->
+  <section id="roadmap" class="section roadmap-section">
+    <div class="container">
+      <h2 class="section__title glitch" data-text="// SKILL_TREE.map()">// SKILL_TREE.map()</h2>
+      <p class="section__subtitle">Progression matrix — from foundational to advanced offensive/defensive capabilities.</p>
+
+      <div class="skill-tree">
+        <div class="tree-node tree-node--root animate-on-scroll">
+          <div class="node-content node-content--acquired">
+            <span class="node-status">■ ACQUIRED</span>
+            <h3>Network &amp; Security Fundamentals</h3>
+            <p>TCP/IP, OSI Model, Firewalls, IDS/IPS, Subnetting</p>
+          </div>
+        </div>
+
+        <div class="tree-connector" aria-hidden="true">
+          <div class="connector-line connector-line--vertical"></div>
+          <div class="connector-split">
+            <div class="connector-line connector-line--horizontal"></div>
+          </div>
+        </div>
+
+        <div class="tree-branches">
+          <div class="tree-branch animate-on-scroll">
+            <div class="branch-label branch-label--infra">[ INFRA ]</div>
+            <div class="branch-nodes">
+              <div class="tree-node"><div class="node-content node-content--acquired"><span class="node-status">■ ACQUIRED</span><h4>Advanced R&amp;S</h4><p>OSPF, EIGRP, BGP, VLANs, STP</p></div></div>
+              <div class="node-arrow" aria-hidden="true">→</div>
+              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>Network Automation</h4><p>Ansible, Python Netmiko, REST APIs</p></div></div>
+              <div class="node-arrow" aria-hidden="true">→</div>
+              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>CCNP / AWS Cloud</h4><p>Cloud Networking, IaC, Hybrid Arch</p></div></div>
+            </div>
+          </div>
+
+          <div class="tree-branch animate-on-scroll">
+            <div class="branch-label branch-label--blue">[ BLUE TEAM ]</div>
+            <div class="branch-nodes">
+              <div class="tree-node"><div class="node-content node-content--acquired"><span class="node-status">■ ACQUIRED</span><h4>Traffic Analysis</h4><p>Wireshark, tcpdump, NetFlow</p></div></div>
+              <div class="node-arrow" aria-hidden="true">→</div>
+              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>SIEM Deployment Lab</h4><p>Splunk, ELK Stack, Wazuh</p></div></div>
+              <div class="node-arrow" aria-hidden="true">→</div>
+              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>BTL1 / CySA+</h4><p>Blue Team Ops, Threat Intel</p></div></div>
+            </div>
+          </div>
+
+          <div class="tree-branch animate-on-scroll">
+            <div class="branch-label branch-label--red">[ RED TEAM ]</div>
+            <div class="branch-nodes">
+              <div class="tree-node"><div class="node-content node-content--acquired"><span class="node-status">■ ACQUIRED</span><h4>Vuln Scanning</h4><p>Nessus, OpenVAS, Nmap NSE</p></div></div>
+              <div class="node-arrow" aria-hidden="true">→</div>
+              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>Active CTF Challenger</h4><p>HackTheBox, TryHackMe, PicoCTF</p></div></div>
+              <div class="node-arrow" aria-hidden="true">→</div>
+              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>eJPT / OSCP</h4><p>Penetration Testing, Exploit Dev</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTF PREVIEW ========== -->
+  <section id="ctf-preview" class="section ctf-section">
+    <div class="container">
+      <h2 class="section__title glitch" data-text="// CTF_WRITEUPS">// CTF_WRITEUPS</h2>
+      <p class="section__subtitle">Latest incident reports from the field. Explore the full archive for detailed attack paths.</p>
+
+      <div class="ctf-grid">
+        <article class="ctf-card animate-on-scroll" id="ctf-report-001">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-001</span><span class="ctf-card__category ctf-card__category--crypto">Cryptography</span></div>
+          <h3 class="ctf-card__title">StegoRSA</h3>
+          <div class="ctf-card__meta"><div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span class="ctf-card__value">PicoCTF</span></div><div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span class="ctf-card__value ctf-card__value--medium">Medium</span></div></div>
+          <div class="ctf-card__tools"><span class="ctf-tool">RSA</span><span class="ctf-tool">Steganography</span></div>
+          <div class="ctf-card__footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/StegoRSA" target="_blank" class="blog-card__btn" style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">> VIEW_WRITEUP</a>
+          </div>
+        </article>
+
+        <article class="ctf-card animate-on-scroll" id="ctf-report-002">
+          <div class="ctf-card__header"><span class="ctf-card__id">PICO-002</span><span class="ctf-card__category ctf-card__category--web">Web Exploitation</span></div>
+          <h3 class="ctf-card__title">Echo Escape 1</h3>
+          <div class="ctf-card__meta"><div class="ctf-card__field"><span class="ctf-card__label">PLATFORM:</span><span class="ctf-card__value">PicoCTF</span></div><div class="ctf-card__field"><span class="ctf-card__label">DIFFICULTY:</span><span class="ctf-card__value ctf-card__value--medium">Medium</span></div></div>
+          <div class="ctf-card__tools"><span class="ctf-tool">Command Injection</span><span class="ctf-tool">Burp Suite</span></div>
+          <div class="ctf-card__footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="ctf-card__status ctf-card__status--solved" style="font-size: 0.75rem;">[ SOLVED ]</span>
+            <a href="https://github.com/mnzmii/ctf-writeups/tree/main/picoCTF/Echo%20Escape%201" target="_blank" class="blog-card__btn" style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">> VIEW_WRITEUP</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="section__cta animate-on-scroll">
+        <a href="ctf.html" class="cta-button" id="view-all-ctf">
+          <span class="cta-button__prompt">guest@portfolio:~$</span>
+          <span class="cta-button__text">ls -la ./CTF_Writeups/ --all</span>
+          <span class="cta-button__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS PREVIEW ========== -->
+  <section id="blog-preview" class="section blog-section">
+    <div class="container">
+      <h2 class="section__title glitch" data-text="// PROJECTS">// PROJECTS</h2>
+      <p class="section__subtitle">Technical projects, lab deployments, and active developments.</p>
+
+      <div class="blog-grid">
+        <article class="blog-card animate-on-scroll">
+          <div class="blog-card__header">
+            <span class="blog-card__date">2026-04-10</span>
+            <span class="blog-card__tag blog-card__tag--blue">Security Dev</span>
+          </div>
+          <h3 class="blog-card__title">CryptoQuest: The Digital Courier</h3>
+          <p class="blog-card__excerpt">An interactive educational game teaching cryptography fundamentals (encryption, hashing, and public-key cryptography) through gameplay. Players navigate cyber-zones as digital couriers with an adaptive AI companion.</p>
+          <div class="blog-card__footer" style="justify-content: flex-end;">
+            <a href="https://github.com/mnzmii/CryptoQuestTheDigitalCourier" target="_blank" class="blog-card__btn" style="color: var(--green); text-decoration: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">> GITHUB</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="section__cta animate-on-scroll">
+        <a href="projects.html" class="cta-button" id="view-all-blog">
+          <span class="cta-button__prompt">guest@portfolio:~$</span>
+          <span class="cta-button__text">ls -la ./Projects/ --all</span>
+          <span class="cta-button__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT PREVIEW ========== -->
+  <section id="contact-preview" class="section contact-preview-section">
+    <div class="container">
+      <div class="contact-preview animate-on-scroll">
+        <div class="contact-preview__text">
+          <h2 class="section__title glitch" data-text="// INITIATE_CONTACT">// INITIATE_CONTACT</h2>
+          <p class="contact-preview__desc">Encrypted channels preferred. Select a vector below or access the full secure contact terminal.</p>
+        </div>
+        <div class="contact-preview__links">
+          <a href="mailto:mhdnzmi@gmail.com" class="contact-preview__pill" id="preview-email"><span>📧</span> Email</a>
+          <a href="https://www.linkedin.com/in/mhdnazmi/" target="_blank" rel="noopener noreferrer" class="contact-preview__pill" id="preview-linkedin"><span>🔗</span> LinkedIn</a>
+          <a href="https://github.com/mnzmii" target="_blank" rel="noopener noreferrer" class="contact-preview__pill" id="preview-github"><span>💻</span> GitHub</a>
+        </div>
+        <a href="contact.html" class="cta-button cta-button--contact" id="view-contact-page">
+          <span class="cta-button__prompt">guest@portfolio:~$</span>
+          <span class="cta-button__text">ssh secure_contact --full</span>
+          <span class="cta-button__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__text">
+        <span class="terminal__prompt">root@portfolio:~#</span> echo "© <span id="footer-year">2026</span> Muhammad Nazmi. All rights reserved."
+      </p>
+      <p class="footer__sub">// Built with raw HTML, CSS, and JS. No frameworks harmed.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
