@@ -2,6 +2,12 @@
 <html lang="en" data-theme="green">
 
 <head>
+  <script>
+    (function(){
+      var theme = localStorage.getItem('portfolio_theme') || 'green';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CTF Writeups | Muhammad Nazmi</title>
