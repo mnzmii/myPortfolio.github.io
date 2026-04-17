@@ -200,23 +200,39 @@
       },
     };
 
-    function appendOutput(command, lines) {
+    async function typeCommand(cmd) {
+      terminalInput.disabled = true;
+      for (let i = 0; i < cmd.length; i++) {
+        terminalInput.value += cmd.charAt(i);
+        if (terminalMirror) terminalMirror.textContent = terminalInput.value;
+        await new Promise(res => setTimeout(res, Math.random() * 50 + 40));
+      }
+      await new Promise(res => setTimeout(res, 200));
+      terminalInput.value = '';
+      if (terminalMirror) terminalMirror.textContent = '';
+      terminalInput.disabled = false;
+    }
+
+    async function appendOutput(command, lines) {
       // Command line
       const cmdDiv = document.createElement('div');
       cmdDiv.className = 'terminal__line terminal__line--history';
       cmdDiv.innerHTML = `<span class="terminal__prompt">guest@portfolio:~$</span> <span class="terminal__command">${escapeHtml(command)}</span>`;
       terminalHistory.appendChild(cmdDiv);
+      terminalBody.scrollTop = terminalBody.scrollHeight;
 
       // Output lines
       if (lines && lines.length > 0) {
         const outDiv = document.createElement('div');
         outDiv.className = 'terminal__output terminal__output--interactive';
-        outDiv.innerHTML = lines.join('<br>');
         terminalHistory.appendChild(outDiv);
-      }
 
-      // Scroll to bottom
-      terminalBody.scrollTop = terminalBody.scrollHeight;
+        for (let i = 0; i < lines.length; i++) {
+          await new Promise(res => setTimeout(res, i === 0 ? 0 : 30));
+          outDiv.innerHTML += (i > 0 ? '<br>' : '') + lines[i];
+          terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+      }
     }
 
     function escapeHtml(text) {
@@ -225,15 +241,15 @@
       return div.innerHTML;
     }
 
-    function processCommand(raw) {
+    async function processCommand(raw) {
       const cmd = raw.trim().toLowerCase();
       if (!cmd) return;
 
       if (COMMANDS[cmd]) {
         const result = COMMANDS[cmd]();
-        appendOutput(raw, result);
+        await appendOutput(raw, result);
       } else {
-        appendOutput(raw, [
+        await appendOutput(raw, [
           `<span class="term-error">bash: ${escapeHtml(cmd)}: command not found</span>`,
           '<span class="term-hint">Type <span class="term-cmd">help</span> for available commands.</span>',
         ]);
@@ -246,12 +262,18 @@
     });
 
     // Handle Enter key
-    terminalInput.addEventListener('keydown', (e) => {
+    terminalInput.addEventListener('keydown', async (e) => {
       if (e.key === 'Enter') {
         const value = terminalInput.value;
+        if (!value.trim()) return;
         terminalInput.value = '';
         if (terminalMirror) terminalMirror.textContent = '';
-        processCommand(value);
+        e.preventDefault();
+        
+        terminalInput.disabled = true;
+        await processCommand(value);
+        terminalInput.disabled = false;
+        terminalInput.focus();
       }
     });
 
@@ -261,24 +283,28 @@
     });
 
     // Auto-run intro sequence after boot
-    function runIntroSequence() {
+    async function runIntroSequence() {
       const bootDelay = sessionStorage.getItem('portfolio_booted_prev') ? 300 : 3200;
 
-      setTimeout(() => {
-        processCommand('whoami');
-        setTimeout(() => {
-          processCommand('cat about.txt');
-          setTimeout(() => {
-            // Add hint
-            const hintDiv = document.createElement('div');
-            hintDiv.className = 'terminal__output terminal__output--hint';
-            hintDiv.innerHTML = '<span class="term-hint">// Type <span class="term-cmd">help</span> to see available commands ↑</span>';
-            terminalHistory.appendChild(hintDiv);
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-            terminalInput.focus();
-          }, 400);
-        }, 600);
-      }, bootDelay);
+      await new Promise(res => setTimeout(res, bootDelay));
+
+      await typeCommand('whoami');
+      await processCommand('whoami');
+
+      await new Promise(res => setTimeout(res, 300)); // pause between commands
+
+      await typeCommand('cat about.txt');
+      await processCommand('cat about.txt');
+
+      await new Promise(res => setTimeout(res, 200));
+
+      // Add hint
+      const hintDiv = document.createElement('div');
+      hintDiv.className = 'terminal__output terminal__output--hint';
+      hintDiv.innerHTML = '<span class="term-hint">// Type <span class="term-cmd">help</span> to see available commands ↑</span>';
+      terminalHistory.appendChild(hintDiv);
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+      terminalInput.focus();
 
       // Mark that we've shown boot before (for faster intro on subsequent pages)
       sessionStorage.setItem('portfolio_booted_prev', '1');
@@ -334,26 +360,7 @@
   );
   animElements.forEach((el) => observer.observe(el));
 
-  // ================================================================
-  // SKILL PROGRESS BARS
-  // ================================================================
-  const progressBars = document.querySelectorAll('.skill-card__progress');
-  const progressObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const bar = entry.target;
-          const targetWidth = bar.getAttribute('data-width');
-          setTimeout(() => {
-            bar.style.width = targetWidth + '%';
-          }, 300);
-          progressObserver.unobserve(bar);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-  progressBars.forEach((bar) => progressObserver.observe(bar));
+
 
   // ================================================================
   // TERMINAL FORM
