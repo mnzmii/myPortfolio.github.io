@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="green">
 <head>
+  <script>
+    (function(){
+      var theme = localStorage.getItem('portfolio_theme') || 'green';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio | Network Engineer & Cybersecurity</title>
@@ -8,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="booting home-page">
@@ -127,18 +134,16 @@
         <div class="skill-card animate-on-scroll" id="skill-webdev">
           <div class="skill-card__header">
             <span class="skill-card__icon">&lt;/&gt;</span>
-            <h3 class="skill-card__title">Web Development</h3>
+            <h3 class="skill-card__title">Programming &amp; Web</h3>
           </div>
           <ul class="skill-card__list">
-            <li><span class="skill-tag">HTML5</span></li>
-            <li><span class="skill-tag">CSS3</span></li>
-            <li><span class="skill-tag">JavaScript</span></li>
-            <li><span class="skill-tag">Responsive Design</span></li>
-            <li><span class="skill-tag">Git</span></li>
+            <li><span class="skill-tag"><i class="fa-brands fa-python"></i> Python</span></li>
+            <li><span class="skill-tag"><i class="fa-brands fa-js"></i> JavaScript</span></li>
+            <li><span class="skill-tag"><i class="fa-brands fa-react"></i> React</span></li>
+            <li><span class="skill-tag"><i class="fa-brands fa-laravel"></i> PHP / Laravel</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-database"></i> PostgreSQL</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-code"></i> C / C++</span></li>
           </ul>
-          <div class="skill-card__bar">
-            <div class="skill-card__progress" data-width="72"></div>
-          </div>
         </div>
 
         <div class="skill-card animate-on-scroll" id="skill-cybersec">
@@ -147,33 +152,27 @@
             <h3 class="skill-card__title">Cybersecurity</h3>
           </div>
           <ul class="skill-card__list">
-            <li><span class="skill-tag">Wireshark</span></li>
-            <li><span class="skill-tag">Nmap</span></li>
-            <li><span class="skill-tag">Vuln Scanning</span></li>
-            <li><span class="skill-tag">CTF Challenges</span></li>
-            <li><span class="skill-tag">Burp Suite</span></li>
-            <li><span class="skill-tag">OSINT</span></li>
+            <li><span class="skill-tag"><i class="fa-brands fa-linux"></i> Linux Security</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-network-wired"></i> Wireshark</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-spider"></i> Burp Suite</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-bug"></i> Web Exploitation</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-shield-halved"></i> Access Control (ACLs)</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-key"></i> Cryptography &amp; Hashing</span></li>
           </ul>
-          <div class="skill-card__bar">
-            <div class="skill-card__progress" data-width="65"></div>
-          </div>
         </div>
 
         <div class="skill-card animate-on-scroll" id="skill-devops">
           <div class="skill-card__header">
             <span class="skill-card__icon">⚙️</span>
-            <h3 class="skill-card__title">DevOps / Infrastructure</h3>
+            <h3 class="skill-card__title">Networking &amp; Infra</h3>
           </div>
           <ul class="skill-card__list">
-            <li><span class="skill-tag">Linux Admin</span></li>
-            <li><span class="skill-tag">Bash Scripting</span></li>
-            <li><span class="skill-tag">Cisco R&amp;S</span></li>
-            <li><span class="skill-tag">Docker</span></li>
-            <li><span class="skill-tag">Networking</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-route"></i> Routing (OSPF)</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-diagram-project"></i> Switching (VLANs, STP)</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-server"></i> Cisco IOS &amp; Packet Tracer</span></li>
+            <li><span class="skill-tag"><i class="fa-solid fa-globe"></i> Network Services (NAT, DHCP)</span></li>
+            <li><span class="skill-tag"><i class="fa-brands fa-github"></i> Git &amp; GitHub</span></li>
           </ul>
-          <div class="skill-card__bar">
-            <div class="skill-card__progress" data-width="80"></div>
-          </div>
         </div>
       </div>
     </div>
@@ -207,31 +206,31 @@
             <div class="branch-nodes">
               <div class="tree-node"><div class="node-content node-content--acquired"><span class="node-status">■ ACQUIRED</span><h4>Advanced R&amp;S</h4><p>OSPF, EIGRP, BGP, VLANs, STP</p></div></div>
               <div class="node-arrow" aria-hidden="true">→</div>
-              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>Network Automation</h4><p>Ansible, Python Netmiko, REST APIs</p></div></div>
+              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>Network Automation</h4><p>Ansible, Python Scripts, REST APIs</p></div></div>
               <div class="node-arrow" aria-hidden="true">→</div>
-              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>CCNP / AWS Cloud</h4><p>Cloud Networking, IaC, Hybrid Arch</p></div></div>
+              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>Cloud &amp; Hybrid Infra</h4><p>AWS Networking, Infrastructure as Code</p></div></div>
             </div>
           </div>
 
           <div class="tree-branch animate-on-scroll">
             <div class="branch-label branch-label--blue">[ BLUE TEAM ]</div>
             <div class="branch-nodes">
-              <div class="tree-node"><div class="node-content node-content--acquired"><span class="node-status">■ ACQUIRED</span><h4>Traffic Analysis</h4><p>Wireshark, tcpdump, NetFlow</p></div></div>
+              <div class="tree-node"><div class="node-content node-content--acquired"><span class="node-status">■ ACQUIRED</span><h4>Network Traffic Analysis</h4><p>Wireshark, tcpdump, PCAP Analysis</p></div></div>
               <div class="node-arrow" aria-hidden="true">→</div>
-              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>SIEM Deployment Lab</h4><p>Splunk, ELK Stack, Wazuh</p></div></div>
+              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>SIEM &amp; Log Analysis</h4><p>Splunk Fundamentals, Event Triage</p></div></div>
               <div class="node-arrow" aria-hidden="true">→</div>
-              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>BTL1 / CySA+</h4><p>Blue Team Ops, Threat Intel</p></div></div>
+              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>Blue Team Ops</h4><p>Incident Response, BTL1 / CySA+</p></div></div>
             </div>
           </div>
 
           <div class="tree-branch animate-on-scroll">
             <div class="branch-label branch-label--red">[ RED TEAM ]</div>
             <div class="branch-nodes">
-              <div class="tree-node"><div class="node-content node-content--acquired"><span class="node-status">■ ACQUIRED</span><h4>Vuln Scanning</h4><p>Nessus, OpenVAS, Nmap NSE</p></div></div>
+              <div class="tree-node"><div class="node-content node-content--acquired"><span class="node-status">■ ACQUIRED</span><h4>Recon &amp; Enumeration</h4><p>Nmap, Service Enum</p></div></div>
               <div class="node-arrow" aria-hidden="true">→</div>
-              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>Active CTF Challenger</h4><p>HackTheBox, TryHackMe, PicoCTF</p></div></div>
+              <div class="tree-node"><div class="node-content node-content--progress"><span class="node-status">◆ IN PROGRESS</span><h4>Active CTF Challenger</h4><p>HackTheBox, TryHackMe, PortSwigger</p></div></div>
               <div class="node-arrow" aria-hidden="true">→</div>
-              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>eJPT / OSCP</h4><p>Penetration Testing, Exploit Dev</p></div></div>
+              <div class="tree-node"><div class="node-content node-content--target"><span class="node-status">◇ TARGET LOCKED</span><h4>Offensive Operations</h4><p>eJPT / OSCP, Exploit Dev</p></div></div>
             </div>
           </div>
         </div>
