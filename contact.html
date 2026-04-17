@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="green">
 <head>
+  <script>
+    (function(){
+      var theme = localStorage.getItem('portfolio_theme') || 'green';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact | Muhammad Nadzrin</title>
+  <title>Contact | Muhammad Nazmi</title>
   <meta name="description" content="Secure contact channels — Email, LinkedIn, GitHub, and PGP Public Key for encrypted communication." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
