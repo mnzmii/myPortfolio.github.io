@@ -21,9 +21,11 @@
 
   /* Accent colors */
   --green: #00e676;
+  --green-rgb: 0, 230, 118;
   --green-dim: #00cc6a;
   --green-glow: rgba(0, 230, 118, 0.35);
   --blue: #00b4ff;
+  --blue-rgb: 0, 180, 255;
   --blue-dim: #0090cc;
   --blue-glow: rgba(0, 180, 255, 0.3);
   --red: #ff2d55;
@@ -55,12 +57,13 @@
 
 [data-theme="amber"] {
   --green: #ffb000;
+  --green-rgb: 255, 176, 0;
   --green-dim: #cc8e00;
   --green-glow: rgba(255, 176, 0, 0.35);
   --blue: #ffa500;
+  --blue-rgb: 255, 165, 0;
   --blue-dim: #cc8400;
   --blue-glow: rgba(255, 165, 0, 0.3);
-  --text-primary: #ffcc66;
   --border-glow: rgba(255, 176, 0, 0.15);
 }
 
@@ -511,6 +514,8 @@ img {
 }
 
 .terminal__prompt {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   color: var(--green);
   font-weight: 600;
   white-space: nowrap;
@@ -732,13 +737,16 @@ img {
 }
 
 .skill-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 28px 24px;
-  transition: all var(--transition-med);
+  background: rgba(17, 17, 25, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 30px 26px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(var(--green-rgb), 0.02), 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .skill-card::before {
@@ -754,10 +762,10 @@ img {
 }
 
 .skill-card:hover {
-  border-color: var(--green-dim);
-  background: var(--bg-card-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 255, 136, 0.08);
+  border-color: rgba(var(--green-rgb), 0.3);
+  background: rgba(17, 17, 25, 0.55);
+  transform: translateY(-6px);
+  box-shadow: inset 0 0 20px rgba(var(--green-rgb), 0.05), 0 12px 40px rgba(var(--green-rgb), 0.12);
 }
 
 .skill-card:hover::before {
@@ -785,41 +793,37 @@ img {
 .skill-card__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 8px; /* Reduced from 20px since there's no bar below it */
 }
 
 .skill-tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.skill-tag i {
+  font-size: 1.15rem;
   color: var(--green);
-  background: rgba(0, 255, 136, 0.06);
-  border: 1px solid rgba(0, 255, 136, 0.15);
-  padding: 4px 10px;
-  border-radius: 4px;
-  transition: all var(--transition-fast);
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 8px var(--green-glow));
 }
+
 .skill-tag:hover {
-  background: rgba(0, 255, 136, 0.12);
-  border-color: var(--green-dim);
-  box-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
-}
-
-.skill-card__bar {
-  width: 100%;
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.skill-card__progress {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--green-dim), var(--green));
-  border-radius: 2px;
-  transition: width 1.2s ease-out;
-  box-shadow: 0 0 8px var(--green-glow);
+  background: rgba(var(--green-rgb), 0.08);
+  border-color: var(--green);
+  color: var(--green);
+  box-shadow: 0 0 20px rgba(var(--green-rgb), 0.2), inset 0 0 10px rgba(var(--green-rgb), 0.1);
+  transform: translateY(-3px) scale(1.02);
 }
 
 /* ================================================================
@@ -827,8 +831,8 @@ img {
    ================================================================ */
 .roadmap-section {
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 50%, rgba(0, 180, 255, 0.02) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(var(--green-rgb), 0.02) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(var(--blue-rgb), 0.02) 0%, transparent 60%),
     transparent;
 }
 
@@ -847,12 +851,15 @@ img {
 
 .node-content {
   padding: 20px 24px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(17, 17, 25, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   text-align: center;
   position: relative;
-  transition: all var(--transition-med);
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 10px rgba(var(--green-rgb), 0.02), 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .node-content h3,
@@ -882,7 +889,7 @@ img {
 /* Status Styles */
 .node-content--acquired {
   border-color: var(--green-dim);
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.08), inset 0 0 20px rgba(0, 255, 136, 0.03);
+  box-shadow: 0 0 20px rgba(var(--green-rgb), 0.08), inset 0 0 20px rgba(var(--green-rgb), 0.03);
 }
 .node-content--acquired .node-status {
   color: var(--green);
@@ -908,7 +915,7 @@ img {
 }
 
 .node-content--target {
-  border-color: var(--border);
+  border-color: rgba(255, 255, 255, 0.1);
   opacity: 0.55;
   filter: grayscale(0.3);
 }
@@ -916,7 +923,9 @@ img {
   color: var(--text-muted);
 }
 .node-content--target:hover {
-  opacity: 0.75;
+  opacity: 0.85;
+  border-color: rgba(var(--green-rgb), 0.2);
+  transform: translateY(-2px);
 }
 
 /* Tree Connectors */
